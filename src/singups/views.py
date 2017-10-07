@@ -1,10 +1,11 @@
 
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import render
 from .forms import SingUpForm
 from .models import SingUp
+from django.http import HttpResponseRedirect
 import md5
 from django.views.generic.edit import FormView
 def home(request):
@@ -25,4 +26,6 @@ def home(request):
 				user = SingUp.objects.get(username=username)
 				if user.password == password:
 					messages.success(request, 'Profile details updated.')
+					return render(request,"main.html",{'nickname':user.nickname})
+					#return HttpResponseRedirect('/main')
 	return render(request,"singup.html",{'form':SingUpForm})
