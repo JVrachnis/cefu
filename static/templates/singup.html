@@ -3,12 +3,12 @@
 	<h1>join now</h1>
 	<form method='POST' action=''>{% csrf_token %}
 		{{form.as_p}}
-		<input type="submit" name="singup">
+		<input type="submit" name="singup" value="register">
 	</form>
 	<form method='POST' action=''>{% csrf_token %}
 		<p><label for="id_username">Username:</label> <input type="text" name="username" id="id_username" maxlength="120"></p>
 		<p><label for="id_password">Password:</label> <input type="password" name="password" id="id_password" maxlength="32"></p>
-                <input type="submit" name="login">
+                <input type="submit" name="login" value="login">
         </form>
 	{% if messages %}
 	<ul class="messages">
