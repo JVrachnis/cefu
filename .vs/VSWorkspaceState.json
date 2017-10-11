@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\static\\templates"
+    "\\src\\cefuServerT",
+    "\\src\\chat"
   ],
-  "SelectedNode": "\\src\\manage.py",
+  "SelectedNode": "\\src\\chat\\consumers.py",
   "PreviewInSolutionExplorer": false
 }
