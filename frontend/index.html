@@ -20,8 +20,8 @@
             <div class="container">
                 <a href="#" class="brand">Cefu</a>
                 <ul class="items">
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Create an account</a></li>
+                    <li><a href="#" id="toggle-login">Login</a></li>
+                    <li><a href="#" class="active" id="toggle-register">Create an account</a></li>
                 </ul>
             </div>
         </nav>
@@ -37,7 +37,7 @@
         </nav>
 
         <!-- Homepage content -->
-        <div class="panels">
+        <div class="panels container">
 
             <!-- Website introduction -->
             <div class="panel splash">
@@ -46,7 +46,7 @@
             </div>
 
             <!-- Registration panel -->
-            <div class="panel register">
+            <div class="panel form" id="register">
                 <h1 class="panel-header">Create an account</h1>
                 <form action="#" method="post">
                     <label for="username">Username</label>
@@ -60,10 +60,22 @@
                     <button>Sign Up</button>
                 </form>
             </div>
+
+            <div class="panel form" id="login">
+                <h1 class="panel-header">Login</h1>
+                <form action="#" method="post">
+                    <label for="email">Email Address</label>
+                    <input type="email" name="email" id="email">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                    <button>Login</button>
+                </form>
+            </div>
         </div>
 
         <!-- Scripts -->
         <script src="js/jquery.js"></script>
+        <script src="js/Navbar.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

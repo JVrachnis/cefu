@@ -58,6 +58,11 @@ h1, h2, h3, h4, h5, h6, p {
     transition: background .08s ease-in-out;
 }
 
+.main-nav .active,
+.mobile-nav .active {
+    background-color: #91c71f;
+}
+
 .main-nav a:hover,
 .mobile-nav a:hover {
     background-color: #91c71f;
@@ -114,7 +119,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .panels {
     display: flex;
-    max-width: 1000px;
+    align-items: flex-start;
     margin: auto;
 }
 
@@ -143,8 +148,8 @@ h1, h2, h3, h4, h5, h6, p {
     }
 }
 
-.panel:not(:last-child) {
-    margin-right: 30px;
+.panel:not(:first-child) {
+    margin-left: 30px;
 }
 
 .panel .panel-header {
@@ -152,8 +157,14 @@ h1, h2, h3, h4, h5, h6, p {
     font-size: 22px;
 }
 
+.panel.form {
+    min-width: 350px;
+    flex-grow: 1;
+}
+
 @media all and (max-width: 768px) {
     .panels {
+        align-items: stretch;
         flex-direction: column;
     }
 
@@ -161,9 +172,13 @@ h1, h2, h3, h4, h5, h6, p {
         align-items: center;
     }
 
-    .panel:not(:last-child) {
-        margin-right: 0;
-        margin-bottom: 20px;
+    .panel:not(:first-child) {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .panel.form {
+        min-width: auto;
     }
 }
 
@@ -187,17 +202,10 @@ h1, h2, h3, h4, h5, h6, p {
     margin-bottom: 15px;
 }
 
-/* Register Panel */
+/* Login Panel */
 
-.register {
-    min-width: 350px;
-    flex-grow: 1;
-}
-
-@media all and (max-width: 768px) {
-    .register {
-        min-width: auto;
-    }
+#login {
+    display: none;
 }
 
 /* Forms */
