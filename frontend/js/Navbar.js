@@ -18,6 +18,10 @@ var Navbar = {
     // Toggles the appropiate panel when a navbar item is clicked
     togglePanel: function(event) {
         clicked = $(event.target);
+
+        if (!clicked.is('a'))
+            clicked = clicked.parent();
+
         panelId = clicked.attr('id').replace('toggle-', '');
         panel = $("#" + panelId);
 

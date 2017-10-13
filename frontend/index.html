@@ -11,6 +11,7 @@
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/icons.css">
         <link rel="stylesheet" href="css/main.css">
 
     </head>
@@ -18,20 +19,23 @@
         <!-- Main navigation -->
         <nav class="main-nav">
             <div class="container">
-                <a href="#" class="brand">Cefu</a>
+                <a href="#" class="brand">
+                    <i class="fa fa-globe" aria-hidden="true"></i>
+                    Cefu
+                </a>
                 <ul class="items">
-                    <li><a href="#" id="toggle-login">Login</a></li>
-                    <li><a href="#" class="active" id="toggle-register">Create an account</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- Mobile navigation -->
-        <nav class="mobile-nav">
-            <div class="container">
-                <a href="#" class="brand">Cefu</a>
-                <ul class="items">
-                    <li><a href="#">Login</a></li>
+                    <li>
+                        <a href="#" id="toggle-login">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Login
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="active" id="toggle-register">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            Create an account
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -57,7 +61,10 @@
                     <input type="password" name="password" id="password">
                     <label for="repeat-password">Repeat Password</label>
                     <input type="password" name="repeat-password" id="repeat-password">
-                    <button>Sign Up</button>
+                    <button class="btn">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                        Sign Up
+                    </button>
                 </form>
             </div>
 
@@ -68,7 +75,16 @@
                     <input type="email" name="email" id="email">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password">
-                    <button>Login</button>
+
+                    <div class="checkbox">
+                        <input type="checkbox" name="remember_me" id="remember-me">
+                        <label for="remember-me">Remember Me</label>
+                    </div>
+
+                    <button class="btn">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        Sign In
+                    </button>
                 </form>
             </div>
         </div>

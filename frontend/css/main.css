@@ -29,53 +29,51 @@ h1, h2, h3, h4, h5, h6, p {
 
 /* Generic Components */
 
+.fa {
+    margin-right: 5px;
+}
+
 .container {
     max-width: 1024px;
 }
 
 /* Navigation */
 
-.main-nav,
-.mobile-nav {
+.main-nav {
     margin-bottom: 20px;
     background: linear-gradient(#81b01c, #7FAF1B);
     background-color: #7FAF1B;
     box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, .1);
 }
 
-.main-nav > .container,
-.mobile-nav > .container {
+.main-nav > .container {
     margin: auto;
     display: flex;
     align-items: stretch;
 }
 
-.main-nav a,
-.mobile-nav a {
+.main-nav a {
     color: #fff;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     padding: 25px 20px;
     transition: background .08s ease-in-out;
 }
 
-.main-nav .active,
-.mobile-nav .active {
+.main-nav .active {
     background-color: #91c71f;
 }
 
-.main-nav a:hover,
-.mobile-nav a:hover {
+.main-nav a:hover {
     background-color: #91c71f;
 }
 
-.main-nav .brand,
-.mobile-nav .brand {
+.main-nav .brand {
     font-size: 24px;
     font-weight: 500;
 }
 
-.main-nav .items,
-.mobile-nav .items {
+.main-nav .items {
     display: flex;
     list-style-type: none;
     margin: 0;
@@ -83,35 +81,28 @@ h1, h2, h3, h4, h5, h6, p {
     margin-left: auto;
 }
 
-.main-nav .items li,
-.mobile-nav .items li {
+.main-nav .items li {
     display: flex;
     align-items: stretch;
 }
 
-.main-nav .items a,
-.mobile-nav .items a {
-    display: flex;
-    align-items: center;
+.main-nav .items a {
     font-size: 16px;
 }
 
-.mobile-nav {
-    display: none;
-}
-
-.mobile-nav > .container {
-    width: 100%;
-    overflow: hidden;
-}
 
 @media all and (max-width: 768px) {
-    .main-nav {
-        display: none;
+    .main-nav > .container {
+        flex-direction: column;
     }
 
-    .mobile-nav {
-        display: block;
+    .main-nav .items {
+        margin-left: 0;
+    }
+
+    .main-nav .items li,
+    .main-nav .items a {
+        flex-grow: 1;
     }
 }
 
@@ -214,6 +205,10 @@ form {
     width: 100%;
 }
 
+form .btn {
+    width: 100%;
+}
+
 label {
     font-size: 18px;
     width: 100%;
@@ -223,7 +218,8 @@ label {
     cursor: pointer;
 }
 
-label:not(:first-child) {
+label:not(:first-child),
+.checkbox:not(:first-child) {
     margin-top: 30px;
 }
 
@@ -247,8 +243,9 @@ input:focus {
     border-color: #02779E;
 }
 
-button {
-    width: 100%;
+.btn {
+    display: flex;
+    align-items: center;
     margin-top: 20px;
     padding: 20px;
     font-size: 19px;
@@ -256,4 +253,24 @@ button {
     background-color: #02779E;
     color: #fff;
     cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0298ca;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.checkbox label {
+    margin: 0;
 }
