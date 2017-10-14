@@ -129,6 +129,11 @@ h1, h2, h3, h4, h5, h6, p {
     animation: present 1s;
 }
 
+.panel .panel-header {
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+
 @keyframes present {
     from {
         opacity: 0;
@@ -139,16 +144,11 @@ h1, h2, h3, h4, h5, h6, p {
     }
 }
 
-.panel:not(:first-child) {
+.panels .panel:not(:first-child) {
     margin-left: 30px;
 }
 
-.panel .panel-header {
-    margin-bottom: 25px;
-    font-size: 22px;
-}
-
-.panel.form {
+.panels .panel.form {
     min-width: 350px;
     flex-grow: 1;
 }
@@ -171,6 +171,15 @@ h1, h2, h3, h4, h5, h6, p {
     .panel.form {
         min-width: auto;
     }
+}
+
+/* Chat Panel */
+
+.panel.chat {
+    position: relative;
+    left: calc(50% - 300px);
+    width: 600px;
+    height: 400px;
 }
 
 /* Splash Panel */
@@ -273,4 +282,48 @@ input:focus {
 
 .checkbox label {
     margin: 0;
+}
+
+/* Dashboard */
+
+.dashboard {
+    display: flex;
+}
+
+.dashboard h1 {
+    padding: 30px 20px;
+}
+
+.dashboard .menu {
+    margin-right: 50px;
+    color: #fff;
+    background-color: #333;
+    width: 250px;
+}
+
+.dashboard .menu .items,
+.dashboard .menu .items .details {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard .menu .items {
+    flex-direction: column;
+}
+
+.dashboard .menu .items a {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.dashboard .menu .items .details {
+    display: flex;
+}
+
+.dashboard .menu .items li a:last-child {
+    border-bottom: 1px solid #ddd;
 }
