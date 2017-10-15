@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+ <h1>join now</h1>
+        <form method='POST' action=''>{% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" name="singup">
+        </form>
+        <form method='POST' action=''>{% csrf_token %}
+                <p><label for="id_username">Username:</label> <input type="text" name="username" id="id_username" maxlength="120"></p>
+                <p><label for="id_password">Password:</label> <input type="password" name="password" id="id_password" maxlength="32"></p>
+                <input type="submit" name="login">
+        </form>
+        {% if messages %}
+        <ul class="messages">
+         {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+</body>
+</html>
+
