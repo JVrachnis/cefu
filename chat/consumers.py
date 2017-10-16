@@ -38,12 +38,13 @@ def ws_connect(message, room_name="dis"):
         #sleep(0.1)
         Group("chat-%s" % room_name).send({
             "text": json.dumps({
-                "text": "joined",
+                "type": "connected",
+                "text": "connected",
                 "username": escape(message.channel_session["user"]),
-                "online": len(rooms[room_name])
+                "online": len(rooms[room_name]),
+                "usersonline": rooms[room_name],
             }),
         })
-
     else:
         # Close the connection.
         message.reply_channel.send({"close": True})
@@ -53,9 +54,11 @@ def ws_message(message,room_name="dis"):
     msq = message["text"]
     Group("chat-%s" % room_name).send({
         "text": json.dumps({
-            "text":  escape(message["text"]),
+            "type": 'message',
+            "text": escape(message["text"]),
             "username":  escape(message.channel_session["user"]),
-            "online": len(rooms[room_name])
+            "online": len(rooms[room_name]),
+            "usersonline": rooms[room_name],
         }),
     })
 # Connected to websocket.disconnect
@@ -65,9 +68,11 @@ def ws_disconnect(message, room_name="dis"):
     rooms[room_name].remove(user)
     Group("chat-%s" % room_name).send({
             "text": json.dumps({
+                "type": 'update',
                 "text": "disconnected",
                 "username": escape(user),
-                "online": len(rooms[room_name])
+                "online": len(rooms[room_name]),
+                "usersonline": rooms[room_name],
             }),
     })
     Group("chat-%s" % room_name).discard(message.reply_channel)

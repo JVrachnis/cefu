@@ -1,11 +1,13 @@
-
+var username = document.getElementById("username").value
 var chatlist= []
 var socket = []
 var prevmsg = []
+var prevuser = []
 function start(chatname="room one", chat_id="room_one"){
     if(! chatlist.includes(chat_id)){
-        chatlist.push(chat_id)
-        prevmsg.push("")
+        chatlist.push(chat_id);
+        prevmsg.push("");
+        prevuser.push('');
         var chatwindow = '\n\
             <section class="windows">\n\
                 <h1 class="panel-header">'+chatname+'</h1>\n\
@@ -23,8 +25,19 @@ onkeyup="if (event.keyCode == 13) { send(\''+chat_id+'\'); return false; }"/>\n\
         socket.push( new WebSocket("ws://" + window.location.host + "/"+ chat_id + "/"));
         socket[chatlist.indexOf(chat_id)].onmessage = function(e) {
            var data = JSON.parse(e.data);
-           document.getElementById(chat_id).innerHTML +='<p> '+  data.username + ': </p> <p>   '+  data.text + '</p>';
-           document.getElementById("users_online_"+chat_id).innerHTML="users online now: "+data.online ;
+           if (username == data.username && data.type=="connected"){
+              document.getElementById(chat_id).innerHTML += 'welcome';
+              document.getElementById("users_online_"+chat_id).innerHTML="users online now: "+data.online+" : "+data.usersonline ;
+              return;
+           } else if(data.username == prevuser[chatlist.indexOf(chat_id)] ){
+              document.getElementById(chat_id).innerHTML +='<br>'+ data.text + '';
+           }else if(data.username == username){
+              document.getElementById(chat_id).innerHTML +='<p>me: </p>'+ data.text + '';
+           }else{
+              document.getElementById(chat_id).innerHTML +='<p>'+ data.username +':</p>'+ data.text + '';
+           }
+           prevuser[chatlist.indexOf(chat_id)] = data.username;
+           document.getElementById("users_online_"+chat_id).innerHTML="users online now: "+data.online+" : "+data.usersonline ;
            document.getElementById(chat_id).scrollTo(0,document.getElementById(chat_id).scrollHeight);
            prevmsg[chatlist.indexOf(chat_id)] = '';
         }
@@ -47,4 +60,3 @@ function send(chat_id='room_one') {
 function isvalid(tempmessage){
    return tempmessage.replace(new RegExp(' ', 'g'), '') != '';
 }
-
