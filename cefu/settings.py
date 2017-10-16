@@ -62,13 +62,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cefu.urls'
-STATIC_URL = os.path.join(BASE_DIR, "authentication","templates")+"/"
+STATIC_ROOT = BASE_DIR
+STATIC_URL = BASE_DIR + "/static/"
+STATICFILES_DIRS = ( os.path.join(BASE_DIR ,'static'), )
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-	   os.path.join(BASE_DIR, "chat","templates"),
-           os.path.join(BASE_DIR, "authentication","templates"),
+           os.path.join(BASE_DIR, "templates"),
 	],
         'APP_DIRS': True,
         'OPTIONS': {

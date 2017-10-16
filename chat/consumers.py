@@ -8,6 +8,9 @@ from channels.handler import AsgiHandler
 from django.shortcuts import render
 from django.contrib import sessions
 from channels.auth import http_session_user, channel_session_user, channel_session_user_from_http ,http_session
+from django.utils.html import escape
+# Connected to websocket.connect
+
 def http_consumer(message):
 
     # Make standard HTTP response - access ASGI path attribute directly
@@ -33,7 +36,7 @@ def ws_connect(message, room_name="dis"):
         Group("chat-%s" % room_name).send({
             "text": json.dumps({
                 "text": "joined",
-                "username": message.channel_session["user"],
+                "username": escape(message.channel_session["user"]),
             }),
         })
 
@@ -43,10 +46,11 @@ def ws_connect(message, room_name="dis"):
 # Connected to websocket.receive
 @channel_session_user_from_http
 def ws_message(message,room_name="dis"):
+    msq = message["text"]
     Group("chat-%s" % room_name).send({
         "text": json.dumps({
-            "text": message["text"],
-            "username": message.channel_session["user"],
+            "text":  escape(message["text"]),
+            "username":  escape(message.channel_session["user"]),
         }),
     })
 # Connected to websocket.disconnect

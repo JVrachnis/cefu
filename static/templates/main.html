@@ -1,8 +1,0 @@
-{% extends "website-base.html" %}
-{% block main %}
-	<form method='POST' action=''>{% csrf_token %}
-        	<input type="submit" name="logout",value="logout">
-        </form>	
-	<h1>it is nice here :)</h1>
-	{{nickname}}
-{% endblock %}
