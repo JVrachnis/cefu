@@ -1,0 +1,9 @@
+python3
+  django
+  Channels
+  Daphne
+  asgiref
+  asgi_redis
+  asgi_rabbitmq
+  asgi_ipc
+redis-server
