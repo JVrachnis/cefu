@@ -1,3 +1,4 @@
+from time import sleep
 import json
 from channels import Group
 from channels.sessions import channel_session ,http_session
@@ -28,10 +29,17 @@ def ws_connect(message, room_name="dis"):
         message.channel_session["room"] = room_name
         # Add the user to the room_name group
         Group("chat-%s" % room_name).add(message.reply_channel)
+        #sleep(0.1)
+        Group("chat-%s" % room_name).send({
+            "text": json.dumps({
+                "text": "joined",
+                "username": message.channel_session["user"],
+            }),
+        })
+
     else:
         # Close the connection.
         message.reply_channel.send({"close": True})
-
 # Connected to websocket.receive
 @channel_session_user_from_http
 def ws_message(message,room_name="dis"):
