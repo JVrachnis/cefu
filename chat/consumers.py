@@ -11,6 +11,7 @@ from channels.auth import http_session_user, channel_session_user, channel_sessi
 from django.utils.html import escape
 # Connected to websocket.connect
 rooms= {}
+repeatedusers={}
 def http_consumer(message):
 
     # Make standard HTTP response - access ASGI path attribute directly
@@ -34,15 +35,28 @@ def ws_connect(message, room_name="dis"):
         Group("chat-%s" % room_name).add(message.reply_channel)
         if room_name not in rooms:
             rooms[room_name] = []
-        rooms[room_name].append(name)
-        #sleep(0.1)
-        Group("chat-%s" % room_name).send({
-            "text": json.dumps({
-                "type": "connected",
-                "text": "connected",
-                "username": escape(message.channel_session["user"]),
-                "online": len(rooms[room_name]),
-                "usersonline": rooms[room_name],
+        if room_name not in repeatedusers:
+            repeatedusers[room_name] =[]
+        if name not in rooms[room_name]:
+            rooms[room_name].append(name)
+            #sleep(0.1)
+            Group("chat-%s" % room_name).send({
+                "text": json.dumps({
+                    "type": "connected",
+                    "text": "connected",
+                    "username": escape(message.channel_session["user"]),
+                    "online": len(rooms[room_name]),
+                    "usersonline": rooms[room_name],
+            }),
+        })
+        else:
+            repeatedusers[room_name].append(name)
+            Group("chat-%s" % room_name).send({
+                "text": json.dumps({
+                    "type": "reconnected",
+                    "username": escape(message.channel_session["user"]),
+                    "online": len(rooms[room_name]),
+                    "usersonline": rooms[room_name],
             }),
         })
     else:
@@ -65,14 +79,17 @@ def ws_message(message,room_name="dis"):
 @channel_session_user_from_http
 def ws_disconnect(message, room_name="dis"):
     user = message.channel_session["user"]
-    rooms[room_name].remove(user)
-    Group("chat-%s" % room_name).send({
-            "text": json.dumps({
-                "type": 'update',
-                "text": "disconnected",
-                "username": escape(user),
-                "online": len(rooms[room_name]),
-                "usersonline": rooms[room_name],
-            }),
-    })
+    if user not in repeatedusers[room_name]:
+        rooms[room_name].remove(user)
+        Group("chat-%s" % room_name).send({
+                "text": json.dumps({
+                    "type": 'disconnected',
+                    "text": "disconnected",
+                    "username": escape(user),
+                    "online": len(rooms[room_name]),
+                    "usersonline": rooms[room_name],
+                }),
+        })
+    else:
+        repeatedusers[room_name].remove(user)
     Group("chat-%s" % room_name).discard(message.reply_channel)

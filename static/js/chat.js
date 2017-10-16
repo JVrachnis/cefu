@@ -28,18 +28,22 @@ onkeyup="if (event.keyCode == 13) { send(\''+chat_id+'\'); return false; }"/>\n\
            if (username == data.username && data.type=="connected"){
               document.getElementById(chat_id).innerHTML += 'welcome';
               document.getElementById("users_online_"+chat_id).innerHTML="users online now: "+data.online+" : "+data.usersonline ;
+              document.getElementById(chat_id).scrollTo(0,document.getElementById(chat_id).scrollHeight);
               return;
-           } else if(data.username == prevuser[chatlist.indexOf(chat_id)] ){
+           }else if(data.type== "reconnected"){
+              document.getElementById("users_online_"+chat_id).innerHTML="users online now: "+data.online+" : "+data.usersonline ;
+              return;
+           }else if(data.username == prevuser[chatlist.indexOf(chat_id)] ){
               document.getElementById(chat_id).innerHTML +='<br>'+ data.text + '';
            }else if(data.username == username){
               document.getElementById(chat_id).innerHTML +='<p>me: </p>'+ data.text + '';
            }else{
+              prevmsg[chatlist.indexOf(chat_id)] = '';
               document.getElementById(chat_id).innerHTML +='<p>'+ data.username +':</p>'+ data.text + '';
            }
            prevuser[chatlist.indexOf(chat_id)] = data.username;
            document.getElementById("users_online_"+chat_id).innerHTML="users online now: "+data.online+" : "+data.usersonline ;
            document.getElementById(chat_id).scrollTo(0,document.getElementById(chat_id).scrollHeight);
-           prevmsg[chatlist.indexOf(chat_id)] = '';
         }
     }
 }
