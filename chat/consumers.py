@@ -10,7 +10,7 @@ from django.contrib import sessions
 from channels.auth import http_session_user, channel_session_user, channel_session_user_from_http ,http_session
 from django.utils.html import escape
 # Connected to websocket.connect
-
+rooms= {}
 def http_consumer(message):
 
     # Make standard HTTP response - access ASGI path attribute directly
@@ -32,11 +32,15 @@ def ws_connect(message, room_name="dis"):
         message.channel_session["room"] = room_name
         # Add the user to the room_name group
         Group("chat-%s" % room_name).add(message.reply_channel)
+        if room_name not in rooms:
+            rooms[room_name] = []
+        rooms[room_name].append(name)
         #sleep(0.1)
         Group("chat-%s" % room_name).send({
             "text": json.dumps({
                 "text": "joined",
                 "username": escape(message.channel_session["user"]),
+                "online": len(rooms[room_name])
             }),
         })
 
@@ -51,9 +55,19 @@ def ws_message(message,room_name="dis"):
         "text": json.dumps({
             "text":  escape(message["text"]),
             "username":  escape(message.channel_session["user"]),
+            "online": len(rooms[room_name])
         }),
     })
 # Connected to websocket.disconnect
 @channel_session_user_from_http
 def ws_disconnect(message, room_name="dis"):
+    user = message.channel_session["user"]
+    rooms[room_name].remove(user)
+    Group("chat-%s" % room_name).send({
+            "text": json.dumps({
+                "text": "disconnected",
+                "username": escape(user),
+                "online": len(rooms[room_name])
+            }),
+    })
     Group("chat-%s" % room_name).discard(message.reply_channel)
