@@ -1,0 +1,7 @@
+python3
+  django
+  Channelss
+  asgi_redis
+  asgi_rabbitm
+  asgi_ipc
+redis-server
