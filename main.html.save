@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+        <html>
+                <head>
+                </head>
+               	<body>
+			Username <input type="text" id="username" name="username"><br/>
+			ChatRoom:<input type="text" id="chat" name="chat"><br/>
+			<input type="button" name="submit" value="Send message" onclick="start()" />
+			<script>
+				function start() {
+					var username = document.getElementById("username").value;
+					var chat = document.getElementById("chat").value;
+					socket = new WebSocket("ws://" + window.location.host + "/"+chat+"/" + username +"/");	 
+					socket.onmessage = function(e) {
+						document.write(e.data)
+					} 
+				}
+				function send(){
+					socket.onopen = function() {
+    socket.send("hello world");
+}
+				
+				
+				}
+			</script> // Call onopen directly if socket is already open </body>
+if (socket.readyState == WebSocket.OPEN) socket.onopen();        </html>
+
