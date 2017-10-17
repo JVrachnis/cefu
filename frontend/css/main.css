@@ -185,15 +185,6 @@ h1, h2, h3, h4, h5, h6, p {
     }
 }
 
-/* Chat Panel */
-
-.panel.chat {
-    position: relative;
-    left: calc(50% - 300px);
-    width: 600px;
-    height: 400px;
-}
-
 /* Splash Panel */
 
 .splash {
@@ -244,6 +235,7 @@ label:not(:first-child),
     margin-top: 30px;
 }
 
+textarea,
 input,
 button {
     border: none;
@@ -251,6 +243,7 @@ button {
     border-radius: 2px;
 }
 
+textarea,
 input {
     font-size: 16px;
     width: 100%;
@@ -260,6 +253,7 @@ input {
     outline: 0;
 }
 
+textarea:focus,
 input:focus {
     border-color: #02779E;
 }
@@ -267,10 +261,10 @@ input:focus {
 .btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 20px;
     padding: 20px;
     font-size: 19px;
-    display: block;
     background-color: #02779E;
     color: #fff;
     cursor: pointer;
@@ -303,16 +297,16 @@ input:focus {
     height: 100%;
 }
 
-.dashboard h1 {
-    font-size: 24px;
-    padding: 30px 20px;
-}
-
 .dashboard .menu {
     margin-right: 50px;
     color: #fff;
     background-color: #333;
     width: 250px;
+}
+
+.dashboard .menu h1 {
+    font-size: 24px;
+    padding: 30px 20px;
 }
 
 .dashboard .menu .items,
@@ -351,4 +345,89 @@ input:focus {
 .dashboard .menu .items .details {
     display: flex;
     margin-top: 10px;
+}
+
+.dashboard .windows {
+    display: flex;
+}
+
+/* Chat */
+
+.chat {
+    width: 600px;
+    height: 600px;
+}
+
+.chat:not(:last-child) {
+    margin-right: 30px;
+}
+
+.chat .interact {
+    height: 60px;
+    margin-top: auto;
+    display: flex;
+    align-items: stretch;
+}
+
+.chat .interact textarea,
+.chat .interact .btn {
+    border-radius: 0;
+}
+
+.chat .interact textarea {
+    resize: none;
+}
+
+.chat .interact .btn {
+    width: auto;
+    margin-top: 0;
+}
+
+/* Chat Message */
+
+.messages {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 3px;
+}
+
+.message.own {
+    margin-left: auto;
+    align-items: flex-end;
+    color: #fff;
+    background-color: #02779E;
+}
+
+.message:not(:first-child) {
+    margin-top: 20px;
+}
+
+.message .info {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.message.own .info {
+    flex-direction: row-reverse;
+}
+
+.message .info .time {
+    margin-right: 10px;
+}
+
+.message.own .info .time {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+.message .info .name {
+    font-weight: 600;
 }
