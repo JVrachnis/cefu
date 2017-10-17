@@ -37,13 +37,25 @@ h1, h2, h3, h4, h5, h6, p {
     max-width: 1024px;
 }
 
+.full-page {
+    height: calc(100% - 77px);
+}
+
+.full-page body {
+    height: 100%;
+}
+
 /* Navigation */
 
 .main-nav {
-    margin-bottom: 20px;
+    z-index: 10;
     background: linear-gradient(#81b01c, #7FAF1B);
     background-color: #7FAF1B;
     box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, .1);
+}
+
+.main-nav.navbar-shift {
+    margin-bottom: 20px;
 }
 
 .main-nav > .container {
@@ -116,7 +128,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 @media all and (max-width: 1024px) {
     .panels {
-        margin: 20px;
+        margin: 10px;
     }
 }
 
@@ -163,12 +175,12 @@ h1, h2, h3, h4, h5, h6, p {
         align-items: center;
     }
 
-    .panel:not(:first-child) {
+    .panels .panel:not(:first-child) {
         margin-left: 0;
         margin-top: 20px;
     }
 
-    .panel.form {
+    .panels .panel.form {
         min-width: auto;
     }
 }
@@ -180,7 +192,6 @@ h1, h2, h3, h4, h5, h6, p {
     left: calc(50% - 300px);
     width: 600px;
     height: 400px;
-    overflow-y: scroll
 }
 
 /* Splash Panel */
@@ -289,9 +300,11 @@ input:focus {
 
 .dashboard {
     display: flex;
+    height: 100%;
 }
 
 .dashboard h1 {
+    font-size: 24px;
     padding: 30px 20px;
 }
 
@@ -318,13 +331,24 @@ input:focus {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #888;
+}
+
+.dashboard .menu .items a:hover {
+    background-color: #444;
+}
+
+.dashboard .menu .items h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.dashboard .menu .items p {
+    line-height: 24px;
 }
 
 .dashboard .menu .items .details {
     display: flex;
-}
-
-.dashboard .menu .items li a:last-child {
-    border-bottom: 1px solid #ddd;
+    margin-top: 10px;
 }
