@@ -41,6 +41,13 @@ INSTALLED_APPS = [
     'chat',
     'authentication',
 ]
+#email
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'john.al.vra@gmail.com'
+EMAIL_HOST_PASSWORD = 'asa789!?'
+EMAIL_PORT = 587
+#channels
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgi_redis.RedisChannelLayer",

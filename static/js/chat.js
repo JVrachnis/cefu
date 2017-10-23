@@ -1,8 +1,7 @@
-var username = document.getElementById("username").value
-var chatlist= []
-var socket = []
+var chatlist= [];
+var socket = [];
 var prevmsg = []
-var prevuser = []
+var prevuser = [];
 function start(chatname="room one", chat_id="room_one"){
     if(! chatlist.includes(chat_id)){
         chatlist.push(chat_id);
@@ -17,7 +16,7 @@ function start(chatname="room one", chat_id="room_one"){
                 <div class="message">\n\
                  <input type="text" name="message" id="message_'+chat_id+'" value=""\
 onkeyup="if (event.keyCode == 13) { send(\''+chat_id+'\'); return false; }"/>\n\
-                 <button type="button" id="button'+chatname+'" onclick="send(\''+chat_id+'\')">Send</button>\n\
+                 <button class"btn" type="button" id="button'+chatname+'" onclick="send(\''+chat_id+'\')">Send</button>\n\
                 </div>\n\
             </section>\n\
         ';

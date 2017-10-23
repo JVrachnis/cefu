@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from authentication.views import home
+from authentication.views import email_confirm
 urlpatterns = [
-    url(r'^$', home, name='home'),
+    url(r'^$', home, name='Cefu'),
     url(r'^admin/', admin.site.urls),
+    url(r'^emailconfirm/(?P<email>[a-zA-Z0-9_@.]+)/(?P<confirmation>[a-zA-Z0-9_]+)/$', email_confirm, name='Cefu email Confirm')
 ]

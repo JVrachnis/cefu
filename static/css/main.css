@@ -101,7 +101,18 @@ h1, h2, h3, h4, h5, h6, p {
 .main-nav .items a {
     font-size: 16px;
 }
-
+.main-nav .btn-nav{
+    height:100%;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 25px 20px;
+    transition: background .08s ease-in-out;
+}
+.main-nav .btn-nav:hover{
+    background-color: #91c71f;
+}
 
 @media all and (max-width: 768px) {
     .main-nav > .container {
@@ -192,6 +203,7 @@ h1, h2, h3, h4, h5, h6, p {
     left: calc(50% - 300px);
     width: 600px;
     height: 400px;
+    overflow: scroll;
 }
 
 /* Splash Panel */
@@ -279,7 +291,6 @@ input:focus {
 .btn:hover {
     background-color: #0298ca;
 }
-
 .checkbox {
     display: flex;
     align-items: center;

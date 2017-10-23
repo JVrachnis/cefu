@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.contrib import sessions
 from channels.auth import http_session_user, channel_session_user, channel_session_user_from_http ,http_session
 from django.utils.html import escape
+from authentication.models import User
 # Connected to websocket.connect
 rooms= {}
 repeatedusers={}
@@ -24,7 +25,9 @@ def http_consumer(message):
 def ws_connect(message, room_name="dis"):
     # Accept connection
     message.reply_channel.send({"accept": True})
-    name = message.http_session['user']
+    id = message.http_session['user']
+    user = User.objects.get(id=id)
+    name = user.username
     # Parse the query string
     # params = parse_qs(message.content["query_string"])
     if name !="":
