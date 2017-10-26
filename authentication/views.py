@@ -13,37 +13,40 @@ from django.views.generic.edit import FormView
 from django.core.exceptions import ObjectDoesNotExist
 #from django.contrib.auth import login,get_user
 from django.contrib.auth.backends import ModelBackend
-from django.core.mail import EmailMessage
-
+#from django.core.mail import EmailMessage
 def authenticate(email=None, password=None, **kwargs):
-        UserModel = User()
         try:
                 user = User.objects.get(email=email)
         except User.DoesNotExist:
-                return None
+                return None,"user does not exist"
         else:
                 print("user does exixst and pass %s" % user.check_password(password))
                 if user.check_password(password):
                         print(user.email_confirmed)
                         if user.email_confirmed == False:
                                 user.email_confirm()
-                                return None
+                                return None,"user is not confirmed"
                         elif user.is_active:
-                                return user
-        return None
-def login(request,user,stay_login):
-        request.session['user'] = user.id
-        if stay_login:
-                request.session.set_expiry(None)
+                                return user,"user authenticated"
+        return None,"wrong password"
+def login(request,user,stay_login=False):
+        if user is not None:
+                request.session['user'] = user.id
+                if stay_login:
+                        request.session.set_expiry(None)
+                else:
+                        request.session.set_expiry(0)
+                print(user.id)
         else:
-                request.session.set_expiry(0)
-        return chat(request)
+                print("user wasnt logged in")
+        return redirect_to_chat(request)
 def logout(request):
         del request.session['user']
         return request
+
 def chat(request):
-        username = User.objects.get(id = request.session['user'])
-        response = render(request,"chat.html",{'username':username})
+        user = User.objects.get(id = request.session['user'])
+        response = render(request,"chat.html",{'username':user.username})
         if (request.method == 'POST') and ('logout' in request.POST):
                 logout(request)
                 response = redirect_to_chat(request)
@@ -62,8 +65,8 @@ def get_login(request):
                 email =request.POST.get("email")
                 password = request.POST.get('password')
                 stay_login = request.POST.get('remember_me',"") == 'on'
-                user = authenticate(email=email, password=password)
-                print("%s %s %s %s" % (user.username,user.email,user.password,stay_login))
+                user , message = authenticate(email=email, password=password)
+#                print("%s %s %s %s" % (user.username,user.email,user.password,stay_login))
                 return login(request,user,stay_login)
 def singup(request):
         form = UserForm(request.POST or None)
@@ -77,9 +80,8 @@ def singup(request):
                         save_it = User(email=email,username=username,birthday=birthday)
                         save_it.set_password(password)
                         save_it.save()
-                        user = authenticate(email=email, password=password)
-                        return login(request ,user)
-
+                        user , message = authenticate(email=email, password=password)
+                        return login(request,user)
 def home(request):
         response = redirect_to_chat(request)
         if request.method == 'POST':
