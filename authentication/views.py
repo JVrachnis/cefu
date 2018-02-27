@@ -20,7 +20,7 @@ def authenticate(email=None, password=None, **kwargs):
         except User.DoesNotExist:
                 return None,"user does not exist"
         else:
-                print("user does exixst and pass %s" % user.check_password(password))
+                print("user does exixst and correct password= %s" % user.check_password(password))
                 if user.check_password(password):
                         print(user.email_confirmed)
                         if user.email_confirmed == False:
@@ -51,7 +51,7 @@ def chat(request):
                 logout(request)
                 response = redirect_to_chat(request)
         return response
-def redirect_to_chat(request):
+def redirect_to_chat_if_stay_login(request):
         response = render(request,"index.html")
         if 'user' in request.session:
                 if request.session.get_expire_at_browser_close():
@@ -60,6 +60,12 @@ def redirect_to_chat(request):
                 else:
                         return chat(request)
         return response
+def redirect_to_chat(request):
+        response = render(request,"index.html")
+        if 'user' in request.session:
+                return chat(request)
+        return response
+
 def get_login(request):
         if request.POST.get("email", "") !='':
                 email =request.POST.get("email")
@@ -83,7 +89,7 @@ def singup(request):
                         user , message = authenticate(email=email, password=password)
                         return login(request,user)
 def home(request):
-        response = redirect_to_chat(request)
+        response = redirect_to_chat_if_stay_login(request)
         if request.method == 'POST':
                 if 'singup' in request.POST:
                         response = singup(request)

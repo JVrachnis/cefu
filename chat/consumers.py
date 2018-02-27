@@ -58,7 +58,7 @@ def ws_connect(message, room_name="dis"):
             }),
         })
         else:
-            repeatedusers[room_name].append(name)
+            repeated_users[room_name].append(name)
             Group("chat-%s" % room_name).send({
                 "text": json.dumps({
                     "type": "reconnected",
@@ -93,7 +93,7 @@ def ws_message(message,room_name="dis"):
 @channel_session_user_from_http
 def ws_disconnect(message, room_name="dis"):
     user = message.channel_session["user"]
-    if user not in repeatedusers[room_name]:
+    if user not in repeated_users[room_name]:
         online_users[room_name].remove(user)
         Group("chat-%s" % room_name).send({
                 "text": json.dumps({
@@ -105,5 +105,5 @@ def ws_disconnect(message, room_name="dis"):
                 }),
         })
     else:
-        repeatedusers[room_name].remove(user)
+        repeated_users[room_name].remove(user)
     Group("chat-%s" % room_name).discard(message.reply_channel)
