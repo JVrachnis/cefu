@@ -21,7 +21,7 @@ onkeyup="if (event.keyCode == 13) { send(\''+chat_id+'\'); return false; }"/>\n\
             </section>\n\
         ';
         document.getElementById("dashboard").innerHTML += chatwindow
-        socket.push( new WebSocket("ws://" + window.location.host + "/"+ chat_id + "/"));
+        socket.push( new WebSocket("ws://" + window.location.host + "/chat/"+ chat_id + "/"));
         socket[chatlist.indexOf(chat_id)].onmessage = function(e) {
            var data = JSON.parse(e.data);
            if (username == data.username && data.type=="connected"){
